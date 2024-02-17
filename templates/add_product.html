@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+    <h2>Добавление нового продукта</h2>
+    <form action="{% url 'add_product' %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="name" class="form-group-label">Название продукта:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <button type="submit" name="add" class="add-button">Добавить продукт</button>
+    </form>
+
+    <h2>Список продуктов:</h2>
+    <ul class="products-list">
+        {% for product in products %}
+        <li>
+            <form action="{% url 'add_product' %}" method="post" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" name="delete" value="{{ product.id }}" class="delete-button">Удалить</button>
+            </form>
+            <span class="product-name">{{ product.name }}</span>
+        </li>
+        {% empty %}
+        <li>Продукты не найдены.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

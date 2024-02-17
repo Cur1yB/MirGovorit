@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <style>
+        .recipe-list {
+            list-style: none; /* Убираем маркеры списка */
+            padding: 0;
+        }
+
+        .recipe-list li {
+            display: flex; /* Для выравнивания кнопки и текста */
+            align-items: center;
+            margin-bottom: 10px; /* Отступ между элементами списка */
+        }
+
+        .delete-button {
+        background-color: #f44336; /* Красный цвет */
+        color: white;
+        margin-right: 10px;
+        font-size: 14pt;
+        }
+
+        .delete-button:hover {
+            background-color: #da190b;
+        }
+    </style>
+    <div class="container">
+        <h2>Список рецептов:</h2>
+        <ul class="recipe-list">
+            {% for recipe in recipes %}
+            <li>
+                <form action="{% url 'delete_recipe' recipe.id %}" method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="delete-button">Удалить</button>
+                </form>
+                {{ recipe.name }}
+            </li>
+            {% empty %}
+            <li>Рецепты не найдены.</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

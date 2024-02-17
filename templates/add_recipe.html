@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Управление рецептами</h2>
+    <!-- Форма для выбора существующего рецепта -->
+    <form action="{% url 'select_recipe' %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="existing-recipe">Выберите рецепт:</label>
+            <select id="existing-recipe" name="recipe_id">
+                {% for recipe in recipes %}
+                <option value="{{ recipe.id }}" {% if current_recipe and recipe.id == current_recipe.id %}selected{% endif %}>
+                    {{ recipe.name }}
+                </option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="select-button">Выбрать рецепт</button>
+        </div>
+    </form>
+
+    <!-- Форма для создания нового рецепта -->
+    <form action="{% url 'create_recipe' %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <input type="text" name="new_recipe_name" placeholder="Название нового рецепта" required>
+            <button type="submit" class="add-button">+</button>
+        </div>
+    </form>
+
+    <!-- Форма для добавления нового продукта -->
+    <form action="{% url 'add_new_product' %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <input type="text" name="name" placeholder="Название нового продукта" required>
+            <button type="submit" class="add-button">+</button>
+        </div>
+    </form>
+
+    <!-- Форма для добавления продуктов в рецепт -->
+    <form action="{% url 'add_recipe' %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="product">Выберите продукт:</label>
+            <select id="product" name="product_id">
+                {% for product in products %}
+                <option value="{{ product.id }}">{{ product.name }}</option>
+                {% endfor %}
+            </select>
+            <input type="number" name="product_weight" placeholder="Вес в граммах" required>
+            <button type="submit" name="add_product_to_recipe" class="add-button">Добавить продукт в рецепт</button>
+        </div>
+    </form>
+
+
+    <!-- Таблица для отображения продуктов в рецепте -->
+    <h2>Продукты в рецепте</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Продукт</th>
+                <th>Вес</th>
+                <th>Действие</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in recipe_products %}
+            <tr>
+                <td>{{ item.product.name }}</td>
+                <td>{{ item.weight }} г</td>
+                <td>
+                    <form action="{% url 'remove_product_from_recipe' item.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="delete-button">Удалить</button>
+                    </form>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3">Продукты не добавлены.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <!-- Добавим кнопку для удаления рецепта -->
+    {% if current_recipe %}
+    <form action="{% url 'delete_recipe' current_recipe.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="delete-recipe-button">Удалить рецепт</button>
+    </form>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,134 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MirGovorit</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    <style>
+        @font-face {
+            font-family: 'rosarium';
+            src: url("{% static 'fonts/rosarium.ttf' %}") format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        body, input, button, textarea, label {
+            font-family: 'rosarium', sans-serif;
+            font-size: 1.2em;
+        }
+
+        .delete-button {
+            background-color: #f44336; /* Красный цвет */
+            color: white;
+            margin-right: 10px;
+            font-size: 1em;
+        }
+
+        .delete-button:hover {
+            background-color: #da190b;
+        }
+        
+        .delete-recipe-button {
+            background-color: #f44336; /* Красный цвет */
+            color: white;
+            margin-right: 10px;
+            font-size: 1.4em;
+        }
+
+        .delete-recipe-button:hover {
+            background-color: #da190b;
+        }
+
+        .add-button {
+            background-color: #29ae53; /* Красный цвет */
+            color: white;
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+
+        .add-button:hover {
+            background-color: #309550;
+        }
+
+        .button-header {
+            display: inline-block;
+            padding: 10px 20px;
+            color: #000000;
+            border: none;
+            border-radius: 20px; /* Скругленные края */
+            text-decoration: none;
+            margin-right: 30px;
+            background: linear-gradient(135deg, #b1b54a 0%, #00F7FF 100%); /* Градиентный фон */
+            font-family: 'rosarium';
+        }
+    
+        .button-header:hover {
+            background: linear-gradient(135deg, #00F7FF 0%, #007BFF 100%); /* Инверсия градиента при наведении */
+        }
+    
+        /* Стили для логотипа */
+        .logo img {
+            max-height: 150px; /* Ограничение высоты логотипа */
+        }
+    
+        /* Стили для горизонтального списка */
+        .nav-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+    
+        /* Стили для элементов списка */
+        .nav-item {
+            display: inline;
+            margin-right: 10px;
+        }
+    
+        /* Стили для фоновой картинки в шапке */
+        body, html {
+            height: 100%; /* Устанавливаем высоту для <body> и <html> */
+        }
+    
+        header {
+            background-image: url("{% static 'images/background.png' %}");
+            width: 100%;
+            background-size: cover; /* Растягивает фоновое изображение на всю ширину и высоту шапки */
+            background-repeat: no-repeat; /* Отключаем повторение фоновой картинки */
+            background-attachment: fixed; /* Фиксируем фоновое изображение */
+            height: 40%; /* Увеличение высоты шапки на 40% от высоты <html> */
+            display: flex; /* Включаем flex-контейнер */
+            align-items: center; /* Выравниваем элементы по вертикали по центру */
+            padding: 10px 20px; /* Добавляем внутренние отступы для шапки */
+        }
+
+        .logo {
+            margin-right: auto; /* Логотип сдвигается влево, кнопки остаются справа */
+        }
+
+        .nav-list {
+            margin-left: auto; /* Кнопки всегда будут прижаты к правому краю шапки */
+        }
+        /* Дополнительные стили... */
+    </style>
+</head>
+<body>
+    <header>
+        <!-- Вставка шапки (header.html) -->
+        {% include 'header.html' %}
+    </header>
+
+    <div id="content">
+        <!-- Вставка содержимого страницы (например, home.html) -->
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <footer>
+        <!-- Вставка подвала (footer.html) -->
+        {% include 'footer.html' %}
+    </footer>
+</body>
+</html>

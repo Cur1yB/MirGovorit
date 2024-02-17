@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Список рецептов без выбранного продукта или с его содержанием менее 10 грамм</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID рецепта</th>
+                <th>Название рецепта</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for recipe in recipes_without_product %}
+            <tr>
+                <td>{{ recipe.id }}</td>
+                <td>{{ recipe.name }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="2">Нет рецептов, удовлетворяющих условиям.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

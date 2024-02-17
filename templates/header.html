@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MirGovorit</title>     
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="{% static 'images/logo.png' %}" alt="Logo">
+        </div>
+        <nav>
+            
+            <ul class="nav-list">
+                <!-- Здесь кнопки с ссылками на страницы -->
+                <li class="nav-item"><a class="button-header" href="/">Домой</a></li>
+                <li class="nav-item"><a class="button-header" href="{% url 'add_product' %}">Добавить продукты</a></li>
+                <li class="nav-item"><a class="button-header" href="{% url 'recipe_list' %}">Список рецептов</a></li>
+                <li class="nav-item"><a class="button-header" href="{% url 'add_recipe' %}">Добавить рецепт</a></li>
+                <li class="nav-item"><a class="button-header" href="{% url 'show_selected_product_recipes' %}">Recipes without Product</a></li>
+            </ul>
+        </nav>
+    </header>
+</body>
+</html>

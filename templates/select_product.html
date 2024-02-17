@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Выберите продукт для просмотра рецептов:</h2>
+    <form action="{% url 'show_selected_product_recipes' %}" method="get">
+        <label for="product">Продукт:</label>
+        <select id="product" name="product_id">
+            {% for product in products %}
+            <option value="{{ product.id }}">{{ product.name }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Показать рецепты</button>
+    </form>
+</div>
+{% endblock %}
