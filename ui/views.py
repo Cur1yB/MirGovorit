@@ -3,6 +3,18 @@ from products.views import handle_add_new_product
 from recipes.models import Recipe, RecipeProduct
 from products.models import Product
 from recipes.views import handle_add_product_to_recipe, handle_delete_product_from_recipe, handle_create_new_recipe
+from recipes.serializers import RecipeSerializer
+from rest_framework.views import APIView
+from rest_framework.response import Response
+
+class RecipeListView(APIView):
+    """
+    API endpoint, который возвращает список рецептов в формате JSON.
+    """
+    def get(self, request, format=None):
+        recipes = Recipe.objects.all()
+        serializer = RecipeSerializer(recipes, many=True)
+        return Response(serializer.data)
 
 def add_new_product(request):
     if request.method == 'POST':

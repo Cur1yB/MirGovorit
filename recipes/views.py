@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import RecipeProduct, Recipe
 from products.models import Product
+from .serializers import RecipeSerializer, RecipeProductSerializer
+from rest_framework import viewsets
 
 def handle_add_product_to_recipe(request, current_recipe):
     product_id = request.POST.get('product_id')

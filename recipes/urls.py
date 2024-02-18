@@ -1,6 +1,7 @@
 from django.urls import path
 from .views import (select_recipe, create_new_recipe, delete_recipe, remove_product_from_recipe, 
                     show_selected_product_recipes, select_recipe, show_recipes_without_product)
+from rest_framework.routers import DefaultRouter
 
 urlpatterns = [
     path('select_recipe/', select_recipe, name='select_recipe'),  
