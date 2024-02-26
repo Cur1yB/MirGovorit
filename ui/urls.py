@@ -1,5 +1,6 @@
 from django.urls import path
-from .views import home, recipe_list_view, add_recipe_view, add_new_product, RecipeListView
+from .views import home, recipe_list_view, add_recipe_view, add_new_product
+from recipes.api import RecipeListView
 
 urlpatterns = [
     path('', home, name='home'),

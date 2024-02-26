@@ -1,8 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import RecipeProduct, Recipe
 from products.models import Product
-from .serializers import RecipeSerializer, RecipeProductSerializer
-from rest_framework import viewsets
 
 def handle_add_product_to_recipe(request, current_recipe):
     product_id = request.POST.get('product_id')
@@ -22,7 +20,7 @@ def handle_delete_product_from_recipe(request, current_recipe):
     recipe_product.delete()
     
 def handle_create_new_recipe(request):
-    recipe_name = request.POST.get('new_recipe_name', '').strip()
+    recipe_name = request.POST.get('new_recipe_name', '').strip().capitalize()
     if recipe_name:
         new_recipe = Recipe.objects.create(name=recipe_name)
         request.session['current_recipe_id'] = new_recipe.id
@@ -31,7 +29,7 @@ def handle_create_new_recipe(request):
 
 def create_new_recipe(request):
     if request.method == 'POST':
-        recipe_name = request.POST.get('new_recipe_name', '').strip()
+        recipe_name = request.POST.get('new_recipe_name', '').strip().capitalize()
         if recipe_name:
             recipe = Recipe.objects.create(name=recipe_name)
             request.session['current_recipe_id'] = recipe.id  # Сохранение ID рецепта в сессии
